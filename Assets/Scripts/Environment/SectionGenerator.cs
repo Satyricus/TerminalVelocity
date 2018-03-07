@@ -10,7 +10,7 @@ public abstract class SectionGenerator : ScriptableObject {
 
     protected int SingleRowDistance;
 
-    protected Object EnvObject;
+    protected GameObject EnvObject;
 
     ///<section>
     /// Initiate a row (simulates a constructor for the ScriptableObject)

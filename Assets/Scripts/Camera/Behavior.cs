@@ -8,11 +8,7 @@ public class Behavior : MonoBehaviour {
     [SerializeField]
     private Vector3 offsetPosition = new Vector3(0.0f, 3.0f, -5.0f);
 
-    [SerializeField]
     private Space offsetPostionSpace = Space.Self;
-
-    [SerializeField]
-    private bool lookAt = true; // Depricated
 
     private void Start() {
         transform.position = target.TransformPoint(offsetPosition);

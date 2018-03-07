@@ -8,12 +8,12 @@ public class Tunnel : SectionGenerator {
     private const int NUMBER_ROWS_TO_SPAWN = 1;
 
     private const int FLOOR_LEVEL = 2;
-    private const int NUMBER_OF_COLUMNS_TO_SPAWN = 10;
+    private const int NUMBER_OF_COLUMNS_TO_SPAWN = 15;
     private const int ROW_DISTANCE = 50;
 
     public override void Init(int ZPosition) {
         this.ZPosition = ZPosition;
-        this.EnvObject = Resources.Load("Prefabs/Environment/Tunnel");
+        this.EnvObject = (GameObject) Resources.Load("Prefabs/Environment/Tunnel");
         this.SingleRowDistance = ROW_DISTANCE;
     }
 

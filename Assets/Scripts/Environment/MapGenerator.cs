@@ -11,7 +11,9 @@ public class MapGenerator : MonoBehaviour {
 
     private const int NUMBER_OF_ROW_TYPES = 3;
 
-    private int ZDistanceUsed = 0;
+    private const int DISTANCE_BETWEEN_SECTIONS = 50;   // Can be more dynamic to increase difficulty
+
+    private int ZDistanceUsed = 50;
 
     void Start () {
         SpawnObjects();
@@ -33,21 +35,26 @@ public class MapGenerator : MonoBehaviour {
     void ChooseColumnToSpawn(int RandomRow) {
         switch (RandomRow) {
             case 1:
-                this.SpawnCubeRow();
+                this.SpawnCubeSection();
                 break;
             case 2:
-                this.SpawnColumnRows();
+                this.SpawnColumnSection();
                 break;
             case 3:
-                this.SpawnTunnelRow();
+                this.SpawnTunnelSection();
+                break;
+            case 4:
+                this.SpawnEmptySection();
                 break;
         }
+
+        this.IncreaseDistanceUsed(DISTANCE_BETWEEN_SECTIONS);
     }
 
     /// <summary>
     /// Initiate a new SectionGenerator of type cube and create section
     /// </summary>
-    void SpawnCubeRow() {
+    void SpawnCubeSection() {
         CubeSection CubeRow = ScriptableObject.CreateInstance<CubeSection>();
         CubeRow.Init(this.ZDistanceUsed);
         CubeRow.CreateSection();
@@ -57,18 +64,28 @@ public class MapGenerator : MonoBehaviour {
     /// <summary>
     /// Spawn a row of columns
     /// </summary>
-    void SpawnColumnRows() {
+    void SpawnColumnSection() {
         ColumnSection ColumnRows = ScriptableObject.CreateInstance<ColumnSection>();
         ColumnRows.Init(this.ZDistanceUsed);
         ColumnRows.CreateSection();
         this.IncreaseDistanceUsed(ColumnRows.getSectionLength());
     }
 
-    void SpawnTunnelRow() {
+    /// <summary>
+    /// Spawn a row of tunnel sections
+    /// </summary>
+    void SpawnTunnelSection() {
         Tunnel TunnelRow = ScriptableObject.CreateInstance<Tunnel>();
         TunnelRow.Init(this.ZDistanceUsed);
         TunnelRow.CreateSection();
         this.IncreaseDistanceUsed(TunnelRow.getSectionLength());
+    }
+
+    /// <summary>
+    /// Create an open area in the map
+    /// </summary>
+    void SpawnEmptySection() {
+        this.IncreaseDistanceUsed(Random.Range(100, 200));
     }
 
     /// <summary>

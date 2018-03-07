@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    private const float MAX_TILT_DEGREES = -15.0f;
+
+    [SerializeField]
+    private const float TURN_SPEED_SCALER = 1.75f;
+
     public float speed;
 
     private Rigidbody rigid;
-
-    private const float MAX_TILT_DEGREES = -15.0f;
 
     void Start () {
         rigid = GetComponent<Rigidbody>();
@@ -18,7 +21,7 @@ public class PlayerMovement : MonoBehaviour {
         var vertical = Input.GetAxis("Vertical");
         var horizontal = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(horizontal, 0, vertical) * speed * Time.deltaTime;
+        Vector3 movement = new Vector3(horizontal / TURN_SPEED_SCALER, 0, vertical) * speed * Time.deltaTime;
 
         rigid.MovePosition(transform.position + movement);
         HandleTilt(horizontal);
