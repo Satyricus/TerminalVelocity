@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -21,7 +19,7 @@ public class PlayerMovement : MonoBehaviour {
         var vertical = Input.GetAxis("Vertical");
         var horizontal = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(horizontal / TURN_SPEED_SCALER, 0, vertical) * speed * Time.deltaTime;
+        Vector3 movement = new Vector3(horizontal / TURN_SPEED_SCALER, 0, 1) * speed * Time.deltaTime;
 
         rigid.MovePosition(transform.position + movement);
         HandleTilt(horizontal);
@@ -29,5 +27,10 @@ public class PlayerMovement : MonoBehaviour {
 
     void HandleTilt(float horizontal) {
         rigid.rotation = Quaternion.Euler(0.0f, 0.0f, horizontal * MAX_TILT_DEGREES);
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        rigid.velocity = new Vector3(0.0f, 0.0f, 0.0f);    // Stop drifting after collision
     }
 }
